@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iv/view/pages/firstpage.dart';
+import 'package:iv/view/pages/navigate/firstpage.dart';
+import 'package:iv/view/pages/navigate/navigate.dart';
 import 'package:iv/view_model/network/constant.dart';
 import 'package:iv/view_model/network/dio_helper.dart';
 import 'package:iv/view_model/network/end_points.dart';
@@ -18,17 +20,15 @@ class LoginCubit extends Cubit<LoginState> {
   static LoginCubit get(context) => BlocProvider.of(context);
 
   void logIn(context) {
-    var data = {
-      "email": email.text,
-      "password": passwrod.text,
-    };
+    var data = {"email": email.text, "password": passwrod.text};
+    print(data);
     DioHelper.postData(url: loginEndPoint, data: data).then((value) {
       print(value.statusCode);
       if (value.statusCode == 200) {
-        token = value.data["data"]["accessToken"];
+        token = value.data["accessToken"];
         print(token);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Home()));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Navigate()));
       }
     }).catchError((onError) {
       print(onError);

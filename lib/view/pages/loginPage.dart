@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iv/view/componant/inputfrom.dart';
-import 'package:iv/view/pages/firstpage.dart';
+import 'package:iv/view/pages/navigate/firstpage.dart';
+import 'package:iv/view/pages/navigate/navigate.dart';
 import 'package:iv/view_model/login/login_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -118,7 +119,7 @@ class LogIn extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Home(),
+                              builder: (context) => Navigate(),
                             ));
                       },
                       child: Text(

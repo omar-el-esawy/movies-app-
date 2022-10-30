@@ -1,84 +1,111 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:iv/view/componant/firstpagecom/logoAndtext.dart';
+import 'package:iv/view/componant/appBar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+
+import '../../../view_model/first_page_cubit.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        width: 260,
-        backgroundColor: Color(0xff121212),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+    return BlocProvider(
+      create: (context) => FirstPageCubit(),
+      child: Scaffold(
+        drawer: myDrawer(context),
+        backgroundColor: Color(0xff1E1E1),
+        appBar: myAppBarlogo(),
+        body: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/Rectangle 87.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(height: 60),
-              Row(children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.red,
-                  child: Image.network(
-                      'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a89c3e38-b6f3-48a0-9f9e-df9a0129fb93/daghh5x-4a77b3ec-fd4f-4d17-9f84-5963a8cb5c03.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2E4OWMzZTM4LWI2ZjMtNDhhMC05ZjllLWRmOWEwMTI5ZmI5M1wvZGFnaGg1eC00YTc3YjNlYy1mZDRmLTRkMTctOWY4NC01OTYzYThjYjVjMDMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.dWTFMrwnbAbj5TtUp9U_vQsohW7MnkRPymzR5wZQoV8'),
-                ),
-                SizedBox(width: 20),
-                Text('Liam Zak', style: TextStyle(color: Colors.white)),
-              ]),
-              SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Container(
-                  height: 220,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      logoAndTextSvg('assets/images/Vector (3).svg', "Account"),
-                      logoAndText(Icons.settings, "Settings"),
-                      logoAndTextSvg('assets/images/Info Circle.svg', "About"),
-                      logoAndText(Icons.output, "Logout"),
-                    ],
+              Column(
+                children: [
+                  SizedBox(height: 30),
+                  Text(
+                    'Now Playing',
+                    style: GoogleFonts.salsa(fontSize: 33, color: Colors.white),
                   ),
-                ),
+                  Text(
+                    'Book your ticket now',
+                    style: GoogleFonts.salsa(fontSize: 10, color: Colors.red),
+                  ),
+                ],
               ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 29),
+                    child: Text(
+                      'Coming Soon',
+                      style: GoogleFonts.roboto(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height: 22),
+                  BlocConsumer<FirstPageCubit, FirstPageState>(
+                    listener: (context, state) {
+                      // TODO: implement listener
+                    },
+                    builder: (context, state) {
+                      FirstPageCubit myCubit = FirstPageCubit.get(context);
+
+                      return CarouselSlider(
+                        carouselController: CarouselController(),
+                        items: myCubit.imgList
+                            .map((Url) => Builder(
+                                  builder: ((context) => Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        margin: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+                                        child: Image.asset(
+                                          Url,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )),
+                                ))
+                            .toList(),
+                        options: CarouselOptions(
+                          pauseAutoPlayInFiniteScroll: true,
+                          scrollPhysics: ScrollPhysics(),
+                          height: 250,
+                          aspectRatio: 16 / 9,
+                          viewportFraction: 0.8,
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 3),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.ease,
+                          enlargeCenterPage: true,
+                          onPageChanged: (index, reason) {
+                            myCubit.swap(index, reason);
+                          },
+                          scrollDirection: Axis.horizontal,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              )
             ],
           ),
         ),
-      ),
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Container(
-          width: 73,
-          child:
-              Image.asset('assets/images/Group 127.png', fit: BoxFit.fitWidth),
-        ),
-        centerTitle: true,
-      ),
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/Rectangle 87.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          children: [
-            SizedBox(height: 30),
-            Text(
-              'Now Playing',
-              style: GoogleFonts.salsa(fontSize: 33, color: Colors.white),
-            ),
-            Text(
-              'Book your ticket now',
-              style: GoogleFonts.salsa(fontSize: 10, color: Colors.red),
-            ),
-          ],
-        ) /* add child content here */,
       ),
     );
   }

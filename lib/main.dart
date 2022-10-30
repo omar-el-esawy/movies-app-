@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iv/view/pages/loginPage.dart';
 import 'package:iv/view/pages/splash.dart';
+import 'package:iv/view_model/network/dio_helper.dart';
 
-void main() {
+void main() async {
+  await DioHelper.init();
   runApp(const MyApp());
 }
 
