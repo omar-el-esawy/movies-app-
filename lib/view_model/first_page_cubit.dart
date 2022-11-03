@@ -8,12 +8,27 @@ class FirstPageCubit extends Cubit<FirstPageState> {
   FirstPageCubit() : super(FirstPageInitial());
 
   static FirstPageCubit get(context) => BlocProvider.of(context);
+  int selected = 1;
+
   int current = 0;
+
+  changePage(index) {
+    current = index;
+    print('hoho');
+    emit(FirstPageInitial());
+  }
+
   List imgList = [
     'assets/images/Film.png',
     'assets/images/Film.png',
     'assets/images/Film.png',
     'assets/images/Film.png',
+  ];
+
+  List nowPlaying = [
+    'assets/images/spider-man-no-way-home-multiverse-poster 1.png',
+    'assets/images/spider-man-no-way-home-multiverse-poster 1.png',
+    'assets/images/spider-man-no-way-home-multiverse-poster 1.png'
   ];
 
   void swap(index, reason) {

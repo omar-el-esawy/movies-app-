@@ -10,7 +10,7 @@ class MyTickets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MyTicketsCubit(),
+      create: (context) => MyTicketsCubit()..getData(),
       child: Scaffold(
         drawer: myDrawer(context),
         backgroundColor: Color(0xff1E1E1),
