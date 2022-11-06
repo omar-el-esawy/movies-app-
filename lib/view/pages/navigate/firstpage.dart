@@ -8,7 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:iv/view/componant/font.dart';
 import 'package:iv/view/pages/nowPlaying.dart';
-
+import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
+import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import '../../../view_model/first_page_cubit.dart';
 import '../../componant/firstpagecom/NowPlaying.dart';
 
@@ -79,9 +80,9 @@ class Home extends StatelessWidget {
                                     builder: (context) => NowPlaying())),
                             child: FilmBox(
                                 url: myCubit.nowPlaying[index],
-                                deg: myCubit.selected < index
+                                deg: myCubit.current < index
                                     ? 7
-                                    : myCubit.selected == index
+                                    : myCubit.current == index
                                         ? 1
                                         : -7),
                           ),

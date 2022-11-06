@@ -22,8 +22,9 @@ class UpcomingFilm {
     name = json['name'];
     imageUrl = json['imageUrl'];
     overview = json['overview'];
-    rating = json['rating'];
+    rating = json['rating'].toDouble();
     trailer = json['trailer'];
+    duration = json['duration'].toDouble();
     adult = json['adult'];
     genre = json['genre'];
   }
