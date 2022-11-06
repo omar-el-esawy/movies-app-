@@ -5,11 +5,10 @@ import 'dart:math';
 import 'package:iv/view/pages/nowPlaying.dart';
 
 class FilmBox extends StatelessWidget {
-  final String url;
+  String? url;
   double deg = 0.0;
 
-   FilmBox({Key? key, required this.url, required this.deg})
-      : super(key: key);
+  FilmBox({Key? key, required this.url, required this.deg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class FilmBox extends StatelessWidget {
         transform: Matrix4.rotationZ((deg * (pi / 180))),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          image: DecorationImage(image: AssetImage(url), fit: BoxFit.cover),
+          image: DecorationImage(image: NetworkImage(url!), fit: BoxFit.cover),
         ),
       ),
     );

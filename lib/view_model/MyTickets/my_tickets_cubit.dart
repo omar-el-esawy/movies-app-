@@ -45,22 +45,5 @@ class MyTicketsCubit extends Cubit<MyTicketsState> {
       color: Colors.red,
     ),
   ];
-  List<UpcomingFilm>? upcomingFilm;
-  UpcomingFilm? obj1;
-  UpcomingFilm? obj2;
-  UpcomingFilm? obj3;
 
-  void getData() {
-    DioHelper.getData(url: movieController, token: token).then((response) {
-      // print(response.data);
-      // obj = UpcomingFilm.fromJson(response.data[0]);
-      // print(obj!.name);
-      upcomingFilm = <UpcomingFilm>[];
-      response.data.forEach((v) {
-        upcomingFilm!.add( UpcomingFilm.fromJson(v));
-      });
-      print(upcomingFilm![0].name);
-      emit(MyTicketsInitial());
-    });
-  }
 }

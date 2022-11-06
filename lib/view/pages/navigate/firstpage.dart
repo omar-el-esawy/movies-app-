@@ -19,7 +19,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FirstPageCubit(),
+      create: (context) => FirstPageCubit()..getData(),
       child: Scaffold(
         drawer: myDrawer(context),
         backgroundColor: Color(0xff1E1E1),
@@ -56,32 +56,39 @@ class Home extends StatelessWidget {
                   FirstPageCubit myCubit = FirstPageCubit.get(context);
                   return Column(
                     children: [
-                      Container(
-                        height:250,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                              image: AssetImage(
-                                  myCubit.nowPlaying[myCubit.selected],
+                      myCubit.upcomingFilm == null
+                          ? Center(
+                              child: Text("Loading ...", style: myFont(18)),
+                            )
+                          : Container(
+                              height: 250,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                      myCubit.upcomingFilm![myCubit.current]
+                                          .imageUrl!,
+                                    ),
+                                    fit: BoxFit.cover,
+                                    opacity: .2),
                               ),
-                              fit: BoxFit.cover,opacity: .2),
-                        ),
-                        width: double.infinity,
-                        child: PageView.builder(
-                          onPageChanged: (index) {
-                            myCubit.changePage(index);
-                          },
-                          controller: PageController(viewportFraction: 0.5),
-                          itemCount: myCubit.nowPlaying.length,
-                          itemBuilder: (context, index) => FilmBox(
-                              url: myCubit.nowPlaying[index],
-                              deg: myCubit.current < index
-                                  ? 6
-                                  : myCubit.current == index
-                                      ? 0
-                                      : -6),
-                        ),
-                      ),
+                              width: double.infinity,
+                              child: PageView.builder(
+                                onPageChanged: (index) {
+                                  myCubit.changePage(index);
+                                },
+                                controller:
+                                    PageController(viewportFraction: 0.5),
+                                itemCount: myCubit.upcomingFilm!.length,
+                                itemBuilder: (context, index) => FilmBox(
+                                    url: myCubit.upcomingFilm![index].imageUrl,
+                                    deg: myCubit.current < index
+                                        ? 6
+                                        : myCubit.current == index
+                                            ? 0
+                                            : -6),
+                              ),
+                            ),
                     ],
                   );
                 },
