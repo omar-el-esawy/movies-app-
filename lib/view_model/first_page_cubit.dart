@@ -31,11 +31,7 @@ class FirstPageCubit extends Cubit<FirstPageState> {
     'assets/images/Film.png',
   ];
 
-  List nowPlaying = [
-    'assets/images/spider-man-no-way-home-multiverse-poster 1.png',
-    'assets/images/spider-man-no-way-home-multiverse-poster 1.png',
-    'assets/images/spider-man-no-way-home-multiverse-poster 1.png'
-  ];
+
 
   void swap(index, reason) {
     selected = index;
