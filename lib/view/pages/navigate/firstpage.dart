@@ -81,6 +81,7 @@ class Home extends StatelessWidget {
                                     PageController(viewportFraction: 0.5),
                                 itemCount: myCubit.upcomingFilm!.length,
                                 itemBuilder: (context, index) => FilmBox(
+                                    upcomingFilm: myCubit.upcomingFilm![index],
                                     url: myCubit.upcomingFilm![index].imageUrl,
                                     deg: myCubit.current < index
                                         ? 6

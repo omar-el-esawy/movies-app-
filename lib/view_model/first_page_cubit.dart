@@ -18,6 +18,8 @@ class FirstPageCubit extends Cubit<FirstPageState> {
 
   changePage(index) {
     current = index;
+
+    print(current.toString());
     print(index.toString());
     emit(FirstPageInitial());
   }
@@ -36,7 +38,7 @@ class FirstPageCubit extends Cubit<FirstPageState> {
   ];
 
   void swap(index, reason) {
-    current = index;
+    selected = index;
     emit(FirstPageInitial());
   }
 

@@ -32,8 +32,6 @@ Widget ticket(String name, BuildContext cxt) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: () => Navigator.push(
-              cxt, MaterialPageRoute(builder: (context) => NowPlaying())),
           child: Container(
             height: 102,
             width: 73,

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iv/Model/Upcoming.dart';
 import 'package:iv/view/componant/font.dart';
 import 'package:iv/view/componant/nowplaying/TimeCard.dart';
 import 'package:iv/view/componant/nowplaying/picture%20and%20text.dart';
 import 'package:iv/view/pages/checkOut/Reservation.dart';
 
 class NowPlaying extends StatelessWidget {
-  NowPlaying({Key? key}) : super(key: key);
+  final UpcomingFilm upcomingFilm;
+
+  NowPlaying({Key? key, required this.upcomingFilm}) : super(key: key);
   double? height, width;
   List Date = [
     'February',
@@ -43,7 +46,7 @@ class NowPlaying extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Text('Spiderman No Way Home', style: myFont(21.35)),
+                  Text(upcomingFilm.name!, style: myFont(21.35)),
                   SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
