@@ -14,7 +14,7 @@ class FirstPageCubit extends Cubit<FirstPageState> {
 
   changePage(index) {
     current = index;
-    print('hoho');
+    print(index.toString());
     emit(FirstPageInitial());
   }
 

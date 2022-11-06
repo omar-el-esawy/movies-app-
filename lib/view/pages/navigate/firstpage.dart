@@ -73,19 +73,13 @@ class Home extends StatelessWidget {
                           },
                           controller: PageController(viewportFraction: 0.5),
                           itemCount: myCubit.nowPlaying.length,
-                          itemBuilder: (context, index) => GestureDetector(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => NowPlaying())),
-                            child: FilmBox(
-                                url: myCubit.nowPlaying[index],
-                                deg: myCubit.current < index
-                                    ? 7
-                                    : myCubit.current == index
-                                        ? 1
-                                        : -7),
-                          ),
+                          itemBuilder: (context, index) => FilmBox(
+                              url: myCubit.nowPlaying[index],
+                              deg: myCubit.current < index
+                                  ? 6
+                                  : myCubit.current == index
+                                      ? 0
+                                      : -6),
                         ),
                       ),
                     ],
